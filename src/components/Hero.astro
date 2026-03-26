@@ -1,6 +1,8 @@
 ---
-import { Image } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import heroPhoto from '../assets/images/hero-climbing.jpg';
+
+const optimizedHero = await getImage({ src: heroPhoto, width: 960, quality: 85, format: 'webp' });
 ---
 
 <section class="hero" id="hero" aria-label="Willkommen bei Kern Baumpflege">
@@ -33,16 +35,22 @@ import heroPhoto from '../assets/images/hero-climbing.jpg';
     </div>
 
     <div class="hero__image">
-      <Image
-        src={heroPhoto}
-        alt="Thomas Kern bei der Arbeit im Baum"
-        class="hero__img"
-        width={960}
-        quality={85}
-        format="webp"
-        loading="eager"
-        fetchpriority="high"
-      />
+      <picture>
+        <!-- On mobile (<768px) the image is hidden via CSS, so serve nothing -->
+        <source media="(max-width: 767px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1" height="1" />
+        <!-- On desktop, serve the optimized WebP -->
+        <source media="(min-width: 768px)" srcset={optimizedHero.src} type="image/webp" />
+        <img
+          src={optimizedHero.src}
+          alt="Thomas Kern bei der Arbeit im Baum"
+          class="hero__img"
+          width="960"
+          height={optimizedHero.attributes.height}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
     </div>
   </div>
 

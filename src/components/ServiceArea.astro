@@ -23,7 +23,7 @@ const locations = [
     </div>
 
     <div class="area-wrapper" data-reveal data-reveal-delay="1">
-      <div id="service-map" aria-label="Karte des Einsatzgebiets"></div>
+      <div id="service-map" aria-label="Karte des Einsatzgebiets" data-locations={JSON.stringify(locations)}></div>
 
       <div class="location-tags" role="list" aria-label="Bediente Orte">
         {locations.map(loc => (
@@ -39,62 +39,80 @@ const locations = [
 </section>
 
 <script>
-  import L from 'leaflet';
-  import 'leaflet/dist/leaflet.css';
+  function initMap() {
+    const mapEl = document.getElementById('service-map');
+    if (!mapEl || mapEl.dataset.loaded) return;
+    mapEl.dataset.loaded = 'true';
 
-  const locations = [
-    { name: 'Heidelberg',            lat: 49.3988, lng: 8.6724 },
-    { name: 'Mannheim',              lat: 49.4875, lng: 8.4660 },
-    { name: 'Weinheim',              lat: 49.5486, lng: 8.6663 },
-    { name: 'Ladenburg',             lat: 49.4699, lng: 8.6064 },
-    { name: 'Schriesheim',           lat: 49.4740, lng: 8.6598 },
-    { name: 'Dossenheim',            lat: 49.4548, lng: 8.6715 },
-    { name: 'Leimen',                lat: 49.3444, lng: 8.6892 },
-    { name: 'Sandhausen',            lat: 49.3412, lng: 8.6615 },
-    { name: 'Eppelheim',             lat: 49.3994, lng: 8.6264 },
-    { name: 'Schwetzingen',          lat: 49.3844, lng: 8.5699 },
-    { name: 'Edingen-Neckarhausen',  lat: 49.4458, lng: 8.5980 },
-    { name: 'Heddesheim',            lat: 49.5012, lng: 8.5961 },
-  ];
+    import('leaflet').then((leafletModule) => {
+      const L = leafletModule.default;
 
-  const map = L.map('service-map', { scrollWheelZoom: false });
-  map.attributionControl.setPrefix(false);
+      // Inject Leaflet CSS dynamically
+      if (!document.querySelector('link[href*="leaflet"]')) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        document.head.appendChild(link);
+      }
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    maxZoom: 18,
-  }).addTo(map);
+      const locations = JSON.parse(mapEl.dataset.locations || '[]');
 
-  L.circle([49.44, 8.60], {
-    radius: 22000,
-    color: '#1B4332',
-    fillColor: '#1B4332',
-    fillOpacity: 0.07,
-    weight: 1.5,
-    opacity: 0.35,
-  }).addTo(map);
+      const map = L.map('service-map', { scrollWheelZoom: false });
+      map.attributionControl.setPrefix(false);
 
-  const markerIcon = L.divIcon({
-    html: `<svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="11" cy="11" r="9" fill="#1B4332" opacity="0.18"/>
-      <circle cx="11" cy="11" r="5" fill="#1B4332"/>
-    </svg>`,
-    className: '',
-    iconSize: [22, 22],
-    iconAnchor: [11, 11],
-    popupAnchor: [0, -14],
-  });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 18,
+      }).addTo(map);
 
-  const bounds = L.latLngBounds([]);
-  locations.forEach(loc => {
-    const ll: [number, number] = [loc.lat, loc.lng];
-    bounds.extend(ll);
-    L.marker(ll, { icon: markerIcon })
-      .addTo(map)
-      .bindPopup(`<strong>${loc.name}</strong>`);
-  });
+      L.circle([49.44, 8.60], {
+        radius: 22000,
+        color: '#1B4332',
+        fillColor: '#1B4332',
+        fillOpacity: 0.07,
+        weight: 1.5,
+        opacity: 0.35,
+      }).addTo(map);
 
-  map.fitBounds(bounds.pad(0.25));
+      const markerIcon = L.divIcon({
+        html: `<svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="11" cy="11" r="9" fill="#1B4332" opacity="0.18"/>
+          <circle cx="11" cy="11" r="5" fill="#1B4332"/>
+        </svg>`,
+        className: '',
+        iconSize: [22, 22],
+        iconAnchor: [11, 11],
+        popupAnchor: [0, -14],
+      });
+
+      const bounds = L.latLngBounds([]);
+      locations.forEach((loc: { name: string; lat: number; lng: number }) => {
+        const ll: [number, number] = [loc.lat, loc.lng];
+        bounds.extend(ll);
+        L.marker(ll, { icon: markerIcon })
+          .addTo(map)
+          .bindPopup(`<strong>${loc.name}</strong>`);
+      });
+
+      map.fitBounds(bounds.pad(0.25));
+    });
+  }
+
+  // Lazy-load map when it scrolls into view
+  const mapObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          initMap();
+          mapObserver.disconnect();
+        }
+      });
+    },
+    { rootMargin: '200px' }
+  );
+
+  const mapEl = document.getElementById('service-map');
+  if (mapEl) mapObserver.observe(mapEl);
 </script>
 
 <style>

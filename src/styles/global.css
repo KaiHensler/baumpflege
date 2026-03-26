@@ -1,5 +1,4 @@
-/* Google Fonts — must precede @import "tailwindcss" */
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+/* Google Fonts loaded via <link> in Layout.astro to avoid render-blocking chain */
 
 @import "tailwindcss";
 
@@ -143,6 +142,8 @@ p {
 ───────────────────────────────────────── */
 .section {
   padding-block: clamp(60px, 8vw, 100px);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
 }
 
 .section--alt {
@@ -187,7 +188,7 @@ p {
   font-size: 1.0625rem;
   font-weight: 600;
   line-height: 1;
-  transition: all 200ms ease;
+  transition: background-color 200ms ease, transform 200ms ease, border-color 200ms ease;
   cursor: pointer;
   white-space: nowrap;
   text-decoration: none;
@@ -229,17 +230,32 @@ p {
    CARDS
 ───────────────────────────────────────── */
 .card {
+  position: relative;
   background: var(--clr-white);
   border: 1px solid var(--clr-bg-alt);
   border-radius: var(--radius-lg);
   padding: 2rem;
   box-shadow: var(--shadow-card);
-  transition: transform 300ms ease, box-shadow 300ms ease;
+  transition: transform 300ms ease;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--shadow-card-hover);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-card-hover);
+}
+
+.card:hover::after {
+  opacity: 1;
 }
 
 /* ─────────────────────────────────────────

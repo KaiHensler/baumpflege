@@ -127,50 +127,47 @@ const faqs = [
 </style>
 
 <script>
-  var DURATION = 320;
-
-  function closeItem(details) {
-    var answer = details.querySelector('.faq-answer');
-    // Snap from auto to px without animating, then animate to 0
+  function closeItem(details: HTMLDetailsElement) {
+    const answer = details.querySelector('.faq-answer') as HTMLElement;
     answer.style.transition = 'none';
     answer.style.height = answer.scrollHeight + 'px';
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
         answer.style.transition = '';
         answer.style.height = '0px';
         details.classList.remove('is-open');
-        setTimeout(function() {
+        answer.addEventListener('transitionend', () => {
           details.removeAttribute('open');
-        }, DURATION);
+        }, { once: true });
       });
     });
   }
 
-  function openItem(details) {
-    document.querySelectorAll('.faq-item.is-open').forEach(function(other) {
-      if (other !== details) closeItem(other);
+  function openItem(details: HTMLDetailsElement) {
+    document.querySelectorAll('.faq-item.is-open').forEach((other) => {
+      if (other !== details) closeItem(other as HTMLDetailsElement);
     });
     details.setAttribute('open', '');
-    var answer = details.querySelector('.faq-answer');
+    const answer = details.querySelector('.faq-answer') as HTMLElement;
     answer.style.height = '0px';
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
         answer.style.height = answer.scrollHeight + 'px';
         details.classList.add('is-open');
-        setTimeout(function() {
+        answer.addEventListener('transitionend', () => {
           answer.style.height = 'auto';
-        }, DURATION);
+        }, { once: true });
       });
     });
   }
 
-  document.querySelectorAll('.faq-item').forEach(function(details) {
-    details.querySelector('summary').addEventListener('click', function(e) {
+  document.querySelectorAll('.faq-item').forEach((details) => {
+    details.querySelector('summary')!.addEventListener('click', (e) => {
       e.preventDefault();
       if (details.classList.contains('is-open')) {
-        closeItem(details);
+        closeItem(details as HTMLDetailsElement);
       } else {
-        openItem(details);
+        openItem(details as HTMLDetailsElement);
       }
     });
   });

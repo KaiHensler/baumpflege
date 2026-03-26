@@ -101,20 +101,36 @@ const services = [
   }
 
   .service-card {
+    position: relative;
     background: var(--clr-white);
     border-radius: var(--radius-lg);
     border: 1.5px solid var(--clr-bg-alt);
     overflow: hidden;
     box-shadow: var(--shadow-card);
-    transition: transform 300ms ease, box-shadow 300ms ease;
+    transition: transform 300ms ease, border-color 300ms ease;
     display: flex;
     flex-direction: column;
   }
 
+  .service-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: var(--shadow-card-hover);
+    opacity: 0;
+    transition: opacity 300ms ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
   .service-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-card-hover);
     border-color: rgba(27, 67, 50, 0.2);
+  }
+
+  .service-card:hover::after {
+    opacity: 1;
   }
 
   .service-card__img-wrap {
