@@ -1,0 +1,177 @@
+---
+const faqs = [
+  {
+    question: 'Was kostet eine Baumfällung?',
+    answer: 'Die Kosten hängen von der Größe des Baumes, der Zugänglichkeit und dem Aufwand ab. Kleine Bäume bis 10m kosten typischerweise 250–600 €, mittlere Bäume 600–1.200 €, große Bäume ab 1.200 €. Bei der kostenlosen Besichtigung nennen wir Ihnen einen verbindlichen Pauschalpreis — ohne Überraschungen.'
+  },
+  {
+    question: 'Brauche ich eine Fällgenehmigung?',
+    answer: 'Das hängt von Ihrer Gemeinde und der Baumschutzsatzung ab. In vielen Städten sind Bäume ab einem bestimmten Stammumfang geschützt. Wir beraten Sie dazu bei der Besichtigung und können die Genehmigung auf Wunsch für Sie beantragen.'
+  },
+  {
+    question: 'Was passiert mit dem Holz und den Ästen?',
+    answer: 'Wir häckseln das Astwerk vor Ort und transportieren es ab. Das Stammholz können Sie als Brennholz behalten — das spart Entsorgungskosten. Auf Wunsch entsorgen wir auch alles komplett.'
+  },
+  {
+    question: 'Wann darf man Bäume fällen?',
+    answer: 'Laut Bundesnaturschutzgesetz sind starke Rückschnitte und Fällungen nur vom 1. Oktober bis 28. Februar erlaubt. Ausnahmen gelten bei akuter Gefährdung. Pflegeschnitte und Totholzentfernung sind ganzjährig möglich.'
+  },
+  {
+    question: 'Sind Sie versichert?',
+    answer: 'Ja. Wir sind über die HAVA Kassel betriebshaftpflichtversichert mit einer Deckungssumme von 5 Millionen Euro. Falls trotz aller Vorsicht ein Schaden entstehen sollte, sind Sie vollständig abgesichert.'
+  },
+  {
+    question: 'Wie schnell können Sie kommen?',
+    answer: 'Bei Notfällen (Sturmschäden, akute Gefahr) sind wir oft noch am selben oder nächsten Tag vor Ort. Für geplante Arbeiten beträgt die Wartezeit aktuell ca. 2–3 Wochen. Je früher Sie anfragen, desto flexibler sind wir bei der Terminplanung.'
+  }
+];
+---
+
+<section class="section section--alt" id="faq" aria-labelledby="faq-headline">
+  <div class="container--narrow">
+    <div class="section__header" data-reveal>
+      <h2 class="section__headline" id="faq-headline">Häufige Fragen</h2>
+      <p class="section__sub">Alles was Sie vor dem ersten Anruf wissen möchten.</p>
+    </div>
+
+    <div class="faq-list" data-reveal data-reveal-delay="1">
+      {faqs.map((faq, i) => (
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>{faq.question}</span>
+            <span class="faq-chevron" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-answer">
+            <p>{faq.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(45, 42, 38, 0.12);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(45, 42, 38, 0.12);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--clr-text);
+    cursor: pointer;
+    list-style: none;
+    transition: color 200ms ease;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question:hover {
+    color: var(--clr-primary);
+  }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    color: var(--clr-text-muted);
+    transition: transform 300ms ease, color 200ms ease;
+  }
+
+  .faq-item.is-open .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--clr-primary);
+  }
+
+  .faq-item.is-open .faq-question {
+    color: var(--clr-primary);
+  }
+
+  .faq-answer {
+    overflow: hidden;
+    height: 0;
+    transition: height 320ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-answer p {
+    font-size: 0.9375rem;
+    color: var(--clr-text-muted);
+    line-height: 1.75;
+    padding-bottom: 1.25rem;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 240ms ease 60ms, transform 240ms ease 60ms;
+  }
+
+  .faq-item.is-open .faq-answer p {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  var DURATION = 320;
+
+  function closeItem(details) {
+    var answer = details.querySelector('.faq-answer');
+    // Snap from auto to px without animating, then animate to 0
+    answer.style.transition = 'none';
+    answer.style.height = answer.scrollHeight + 'px';
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        answer.style.transition = '';
+        answer.style.height = '0px';
+        details.classList.remove('is-open');
+        setTimeout(function() {
+          details.removeAttribute('open');
+        }, DURATION);
+      });
+    });
+  }
+
+  function openItem(details) {
+    document.querySelectorAll('.faq-item.is-open').forEach(function(other) {
+      if (other !== details) closeItem(other);
+    });
+    details.setAttribute('open', '');
+    var answer = details.querySelector('.faq-answer');
+    answer.style.height = '0px';
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        answer.style.height = answer.scrollHeight + 'px';
+        details.classList.add('is-open');
+        setTimeout(function() {
+          answer.style.height = 'auto';
+        }, DURATION);
+      });
+    });
+  }
+
+  document.querySelectorAll('.faq-item').forEach(function(details) {
+    details.querySelector('summary').addEventListener('click', function(e) {
+      e.preventDefault();
+      if (details.classList.contains('is-open')) {
+        closeItem(details);
+      } else {
+        openItem(details);
+      }
+    });
+  });
+</script>

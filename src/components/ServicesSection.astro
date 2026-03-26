@@ -1,0 +1,216 @@
+---
+import { Image } from 'astro:assets';
+import imgBaumfaellung from '../assets/images/baumfaellung.jpg';
+import imgKronenpflege from '../assets/images/kronenpflege.jpg';
+import imgSturmschaden from '../assets/images/sturmschaden.jpg';
+import imgWurzelfraesen from '../assets/images/wurzelfraesen.webp';
+import imgBaumgutachten from '../assets/images/baumgutachten.jpg';
+
+const services = [
+  {
+    img: imgBaumfaellung,
+    alt: 'Baumfällung per Seilklettertechnik',
+    title: 'Baumfällung & Spezialfällung',
+    text: 'Wir fällen Bäume jeder Größe — auch dort wo kein Kran hinkommt. Per Seilklettertechnik tragen wir Ihren Baum Stück für Stück ab, sicher und kontrolliert.'
+  },
+  {
+    img: imgKronenpflege,
+    alt: 'Kronenpflege und Baumschnitt',
+    title: 'Kronenpflege & Baumschnitt',
+    text: 'Professioneller Schnitt nach ZTV-Baumpflege. Wir bringen Ihre Bäume in Form, entfernen Totholz und schaffen mehr Licht in Ihrem Garten.'
+  },
+  {
+    img: imgSturmschaden,
+    alt: 'Sturmschaden-Beseitigung und Notdienst',
+    title: 'Sturmschaden & Notdienst',
+    text: 'Sturm, Astbruch, akute Gefahr — wir sind schnell vor Ort. Rufen Sie uns an, wir helfen Ihnen sofort.'
+  },
+  {
+    img: imgWurzelfraesen,
+    alt: 'Wurzelfräsen und Baumstumpf entfernen',
+    title: 'Wurzelfräsen',
+    text: 'Baumstumpf stört? Unsere Stubbenfräse entfernt den Wurzelstock sauber und rückstandsfrei. Danach können Sie die Fläche wieder nutzen.'
+  },
+  {
+    img: imgBaumgutachten,
+    alt: 'Baumkontrolle und Gutachten',
+    title: 'Baumkontrolle & Gutachten',
+    text: 'Ist Ihr Baum noch sicher? Wir prüfen Stand- und Bruchsicherheit und dokumentieren den Zustand — für Ihre Sicherheit und die Ihrer Nachbarn.'
+  }
+];
+---
+
+<section class="section" id="leistungen" aria-labelledby="leistungen-headline">
+  <div class="container">
+    <div class="section__header" data-reveal>
+      <h2 class="section__headline" id="leistungen-headline">Was wir für Sie tun</h2>
+      <p class="section__sub">Vollständige Baumpflege aus einer Hand — von der Erstberatung bis zur Entsorgung.</p>
+    </div>
+
+    <div class="services-grid">
+      {services.map((s, i) => (
+        <div class="service-card" data-reveal data-reveal-delay={String((i % 3) + 1)}>
+          <div class="service-card__img-wrap">
+            <Image
+              src={s.img}
+              alt={s.alt}
+              class="service-card__img"
+              width={600}
+              height={340}
+              quality={80}
+              format="webp"
+              loading="lazy"
+            />
+          </div>
+          <div class="service-card__body">
+            <h3 class="service-card__title">{s.title}</h3>
+            <p class="service-card__text">{s.text}</p>
+          </div>
+        </div>
+      ))}
+
+      <!-- 6th cell CTA -->
+      <div class="service-cta" data-reveal>
+        <p class="service-cta__label">Nicht sicher was Sie brauchen?</p>
+        <h3 class="service-cta__heading">Wir beraten Sie kostenlos vor Ort.</h3>
+        <p class="service-cta__text">Schildern Sie uns Ihre Situation – wir finden gemeinsam die richtige Lösung.</p>
+        <a href="#kontakt" class="service-cta__btn">
+          Jetzt anfragen
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1024px) {
+    .services-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .service-card {
+    background: var(--clr-white);
+    border-radius: var(--radius-lg);
+    border: 1.5px solid var(--clr-bg-alt);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: transform 300ms ease, box-shadow 300ms ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(27, 67, 50, 0.2);
+  }
+
+  .service-card__img-wrap {
+    overflow: hidden;
+    height: 200px;
+    flex-shrink: 0;
+  }
+
+  .service-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 400ms ease;
+  }
+
+  .service-card:hover .service-card__img {
+    transform: scale(1.04);
+  }
+
+  .service-card__body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    border-top: 3px solid var(--clr-primary);
+  }
+
+  .service-card__title {
+    font-size: 1.125rem;
+    margin: 0;
+  }
+
+  .service-card__text {
+    font-size: 0.9375rem;
+    color: var(--clr-text-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .service-cta {
+    background: var(--clr-primary);
+    border-radius: var(--radius-lg);
+    border: 1.5px solid var(--clr-primary-light);
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.875rem;
+    min-height: 100%;
+  }
+
+  .service-cta__label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--clr-accent);
+    margin: 0;
+  }
+
+  .service-cta__heading {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 400;
+    color: var(--clr-white);
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  .service-cta__text {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .service-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--clr-accent);
+    color: var(--clr-text);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: background-color 200ms ease, transform 200ms ease;
+  }
+
+  .service-cta__btn:hover {
+    background-color: var(--clr-accent-hover);
+    transform: scale(1.02);
+  }
+</style>

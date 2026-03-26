@@ -1,0 +1,80 @@
+---
+---
+
+<div class="trust-bar" aria-label="Vertrauens-Kennzahlen">
+  <div class="trust-bar__inner container">
+    <div class="trust-bar__item">
+      <span class="trust-bar__accent">⭐ 4,9</span>
+      <span class="trust-bar__label">bei Google · 47 Bewertungen</span>
+    </div>
+    <span class="trust-bar__divider" aria-hidden="true">·</span>
+    <div class="trust-bar__item">
+      <span class="trust-bar__accent">FAW</span>
+      <span class="trust-bar__label">Fachagrarwirt zertifiziert</span>
+    </div>
+    <span class="trust-bar__divider" aria-hidden="true">·</span>
+    <div class="trust-bar__item">
+      <span class="trust-bar__accent">5 Mio. €</span>
+      <span class="trust-bar__label">Betriebshaftpflicht</span>
+    </div>
+    <span class="trust-bar__divider" aria-hidden="true">·</span>
+    <div class="trust-bar__item">
+      <span class="trust-bar__accent">Seit 2018</span>
+      <span class="trust-bar__label">in der Region</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .trust-bar {
+    background-color: var(--clr-primary);
+    padding-block: 0.875rem;
+  }
+
+  .trust-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+  }
+
+  .trust-bar__item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .trust-bar__accent {
+    color: var(--clr-accent);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .trust-bar__label {
+    color: rgba(255, 255, 255, 0.75);
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .trust-bar__divider {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 600px) {
+    .trust-bar__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      text-align: center;
+    }
+    .trust-bar__divider { display: none; }
+    .trust-bar__item { flex-direction: column; gap: 0.15rem; }
+  }
+</style>

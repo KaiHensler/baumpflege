@@ -1,0 +1,151 @@
+---
+const locations = [
+  { name: 'Heidelberg',            lat: 49.3988, lng: 8.6724 },
+  { name: 'Mannheim',              lat: 49.4875, lng: 8.4660 },
+  { name: 'Weinheim',              lat: 49.5486, lng: 8.6663 },
+  { name: 'Ladenburg',             lat: 49.4699, lng: 8.6064 },
+  { name: 'Schriesheim',           lat: 49.4740, lng: 8.6598 },
+  { name: 'Dossenheim',            lat: 49.4548, lng: 8.6715 },
+  { name: 'Leimen',                lat: 49.3444, lng: 8.6892 },
+  { name: 'Sandhausen',            lat: 49.3412, lng: 8.6615 },
+  { name: 'Eppelheim',             lat: 49.3994, lng: 8.6264 },
+  { name: 'Schwetzingen',          lat: 49.3844, lng: 8.5699 },
+  { name: 'Edingen-Neckarhausen',  lat: 49.4458, lng: 8.5980 },
+  { name: 'Heddesheim',            lat: 49.5012, lng: 8.5961 },
+];
+---
+
+<section class="section" id="einsatzgebiet" aria-labelledby="einsatz-headline">
+  <div class="container">
+    <div class="section__header" data-reveal>
+      <h2 class="section__headline" id="einsatz-headline">Unser Einsatzgebiet</h2>
+      <p class="section__sub">Wir sind in der gesamten Rhein-Neckar-Region für Sie im Einsatz.</p>
+    </div>
+
+    <div class="area-wrapper" data-reveal data-reveal-delay="1">
+      <div id="service-map" aria-label="Karte des Einsatzgebiets"></div>
+
+      <div class="location-tags" role="list" aria-label="Bediente Orte">
+        {locations.map(loc => (
+          <span class="location-tag" role="listitem">{loc.name}</span>
+        ))}
+      </div>
+    </div>
+
+    <p class="area-note" data-reveal data-reveal-delay="2">
+      Nicht dabei? Rufen Sie uns an — wir fahren auch darüber hinaus.
+    </p>
+  </div>
+</section>
+
+<script>
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+
+  const locations = [
+    { name: 'Heidelberg',            lat: 49.3988, lng: 8.6724 },
+    { name: 'Mannheim',              lat: 49.4875, lng: 8.4660 },
+    { name: 'Weinheim',              lat: 49.5486, lng: 8.6663 },
+    { name: 'Ladenburg',             lat: 49.4699, lng: 8.6064 },
+    { name: 'Schriesheim',           lat: 49.4740, lng: 8.6598 },
+    { name: 'Dossenheim',            lat: 49.4548, lng: 8.6715 },
+    { name: 'Leimen',                lat: 49.3444, lng: 8.6892 },
+    { name: 'Sandhausen',            lat: 49.3412, lng: 8.6615 },
+    { name: 'Eppelheim',             lat: 49.3994, lng: 8.6264 },
+    { name: 'Schwetzingen',          lat: 49.3844, lng: 8.5699 },
+    { name: 'Edingen-Neckarhausen',  lat: 49.4458, lng: 8.5980 },
+    { name: 'Heddesheim',            lat: 49.5012, lng: 8.5961 },
+  ];
+
+  const map = L.map('service-map', { scrollWheelZoom: false });
+  map.attributionControl.setPrefix(false);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 18,
+  }).addTo(map);
+
+  L.circle([49.44, 8.60], {
+    radius: 22000,
+    color: '#1B4332',
+    fillColor: '#1B4332',
+    fillOpacity: 0.07,
+    weight: 1.5,
+    opacity: 0.35,
+  }).addTo(map);
+
+  const markerIcon = L.divIcon({
+    html: `<svg width="22" height="22" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="11" cy="11" r="9" fill="#1B4332" opacity="0.18"/>
+      <circle cx="11" cy="11" r="5" fill="#1B4332"/>
+    </svg>`,
+    className: '',
+    iconSize: [22, 22],
+    iconAnchor: [11, 11],
+    popupAnchor: [0, -14],
+  });
+
+  const bounds = L.latLngBounds([]);
+  locations.forEach(loc => {
+    const ll: [number, number] = [loc.lat, loc.lng];
+    bounds.extend(ll);
+    L.marker(ll, { icon: markerIcon })
+      .addTo(map)
+      .bindPopup(`<strong>${loc.name}</strong>`);
+  });
+
+  map.fitBounds(bounds.pad(0.25));
+</script>
+
+<style>
+  .area-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  #service-map {
+    width: 100%;
+    max-width: 800px;
+    height: 400px;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(45, 42, 38, 0.12);
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .location-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    max-width: 800px;
+  }
+
+  .location-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: var(--clr-bg-alt);
+    border: 1px solid rgba(45, 42, 38, 0.1);
+    border-radius: 24px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--clr-text);
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+
+  .location-tag:hover {
+    background-color: var(--clr-primary);
+    color: var(--clr-white);
+    border-color: var(--clr-primary);
+  }
+
+  .area-note {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9375rem;
+    color: var(--clr-text-muted);
+    font-style: italic;
+  }
+</style>

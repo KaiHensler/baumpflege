@@ -1,0 +1,266 @@
+---
+---
+
+<header id="site-header" class="site-header">
+  <div class="header-inner container">
+    <!-- Logo -->
+    <a href="#" class="header-logo" aria-label="Kern Baumpflege — Startseite">
+      <span class="logo-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22v-7"/>
+          <path d="M5 9.5C5 5.9 8.1 2 12 2s7 3.9 7 7.5C19 13 16 16 12 16S5 13 5 9.5z"/>
+        </svg>
+      </span>
+      <span class="logo-text">Kern Baumpflege</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="header-nav" aria-label="Hauptnavigation">
+      <a href="tel:+4901234567890" class="header-phone">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        0123 – 456 78 90
+      </a>
+      <a href="#kontakt" class="btn btn--primary header-cta">
+        Kostenlose Besichtigung
+      </a>
+    </nav>
+
+    <!-- Mobile Hamburger -->
+    <button id="menu-btn" class="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobilnavigation">
+  <div class="mobile-menu__inner">
+    <div class="mobile-menu__top">
+      <span class="logo-text" style="color: var(--clr-primary); font-family: var(--font-body); font-weight: 700; font-size: 1.25rem;">Kern Baumpflege</span>
+      <button id="menu-close" class="mobile-menu__close" aria-label="Menü schließen">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <nav class="mobile-nav" aria-label="Mobile Navigation">
+      <a href="#leistungen" class="mobile-nav-link">Leistungen</a>
+      <a href="#ueber-uns" class="mobile-nav-link">Über uns</a>
+      <a href="#bewertungen" class="mobile-nav-link">Bewertungen</a>
+      <a href="#faq" class="mobile-nav-link">FAQ</a>
+      <a href="#kontakt" class="mobile-nav-link">Kontakt</a>
+    </nav>
+    <div class="mobile-menu__cta">
+      <a href="tel:+4901234567890" class="btn btn--dark" style="width: 100%; justify-content: center; margin-bottom: 0.75rem;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        0123 – 456 78 90
+      </a>
+      <a href="#kontakt" class="btn btn--primary mobile-nav-link" style="width: 100%; justify-content: center;">
+        Kostenlose Besichtigung
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: 64px;
+    transition: background-color 300ms ease, box-shadow 300ms ease;
+  }
+
+  .site-header.scrolled {
+    background-color: var(--clr-white);
+    box-shadow: 0 2px 20px rgba(45, 42, 38, 0.08);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--clr-white);
+    transition: color 300ms ease;
+    text-decoration: none;
+  }
+
+  .site-header.scrolled .header-logo {
+    color: var(--clr-primary);
+  }
+
+  .logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: var(--clr-accent);
+    border-radius: var(--radius-sm);
+    color: var(--clr-primary);
+    flex-shrink: 0;
+  }
+
+  .header-nav {
+    display: none;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .header-nav { display: flex; }
+  }
+
+  .header-phone {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--clr-white);
+    transition: color 300ms ease;
+    text-decoration: none;
+  }
+
+  .site-header.scrolled .header-phone {
+    color: var(--clr-primary);
+  }
+
+  .header-phone:hover {
+    color: var(--clr-accent);
+  }
+
+  .header-cta {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9375rem;
+  }
+
+  /* Hamburger — hidden on desktop, shown only on mobile */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  @media (max-width: 767px) {
+    .hamburger { display: flex; }
+  }
+
+  .hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--clr-white);
+    border-radius: 2px;
+    transition: background-color 300ms ease;
+  }
+
+  .site-header.scrolled .hamburger span {
+    background-color: var(--clr-primary);
+  }
+
+  /* Mobile Menu */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    background-color: var(--clr-white);
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+  }
+
+  .mobile-menu.open {
+    transform: translateX(0);
+  }
+
+  .mobile-menu__inner {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    min-height: 100%;
+  }
+
+  .mobile-menu__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--clr-bg-alt);
+    margin-bottom: 2rem;
+  }
+
+  .mobile-menu__close {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    background-color: var(--clr-bg-alt);
+    color: var(--clr-text);
+    cursor: pointer;
+    border: none;
+  }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+  }
+
+  .mobile-nav-link {
+    display: block;
+    padding: 1rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--clr-text);
+    border-radius: var(--radius-md);
+    transition: background-color 200ms ease, color 200ms ease;
+    text-decoration: none;
+  }
+
+  .mobile-nav-link:hover {
+    background-color: var(--clr-bg-alt);
+    color: var(--clr-primary);
+  }
+
+  .mobile-menu__cta {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--clr-bg-alt);
+  }
+
+  @media (min-width: 768px) {
+    .site-header { height: 64px; }
+  }
+
+  @media (max-width: 767px) {
+    .site-header { height: 56px; }
+  }
+</style>

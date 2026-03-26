@@ -1,0 +1,95 @@
+---
+---
+
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner container">
+    <div class="footer-brand">
+      <span class="footer-name">Kern Baumpflege</span>
+      <span class="footer-tagline">Sicher. Sauber. Fachgerecht.</span>
+    </div>
+
+    <div class="footer-info">
+      <p>© 2026 Kern Baumpflege · Thomas Kern</p>
+      <p>Musterstraße 12 · 69120 Heidelberg</p>
+      <p>Fachagrarwirt für Baumpflege und Baumsanierung</p>
+    </div>
+
+    <nav class="footer-legal" aria-label="Rechtliche Links">
+      <a href="#" class="footer-link">Impressum</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="#" class="footer-link">Datenschutz</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: #0D1F17;
+    padding-block: 2.5rem;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .footer-inner {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .footer-name {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--clr-white);
+  }
+
+  .footer-tagline {
+    font-size: 0.75rem;
+    color: var(--clr-accent);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .footer-info p {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.7;
+  }
+
+  .footer-legal {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .footer-link {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+
+  .footer-link:hover {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .footer-sep {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.75rem;
+  }
+</style>

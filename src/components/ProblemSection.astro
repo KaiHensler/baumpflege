@@ -1,0 +1,85 @@
+---
+const problems = [
+  {
+    accentColor: '#C0392B',
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>`,
+    title: 'Der Notfall',
+    text: 'Sturm, Astbruch, umgefallener Baum — und keiner hebt ab. Sie brauchen schnelle Hilfe, aber jeder Betrieb den Sie anrufen geht nicht ran oder „kann frühestens in drei Wochen". Ihr Problem wartet aber nicht drei Wochen.'
+  },
+  {
+    accentColor: '#D4A843',
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>`,
+    title: 'Die Unsicherheit',
+    text: 'Ihr Baum ist zu groß geworden — aber darf man den einfach fällen? Sie wissen nicht was eine Fällung kostet, ob Sie eine Genehmigung brauchen und ob der Betrieb aus der Anzeige wirklich versichert ist. Sie wollen nicht 2.000 Euro ausgeben und hinterher einen zerstörten Garten haben.'
+  },
+  {
+    accentColor: '#6B6560',
+    icon: `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    title: 'Der Nachbar',
+    text: 'Die Äste hängen rüber, der Nachbar beschwert sich — und Sie stecken in der Mitte. Sie brauchen jemanden der das Problem fachgerecht löst, ohne den Nachbarschaftsfrieden komplett zu zerstören. Jemanden der weiß was erlaubt ist und was nicht.'
+  }
+];
+---
+
+<section class="section" id="probleme" aria-labelledby="probleme-headline">
+  <div class="container">
+    <div class="section__header" data-reveal>
+      <h2 class="section__headline" id="probleme-headline">Kommt Ihnen das bekannt vor?</h2>
+      <p class="section__sub">Viele Hausbesitzer kennen diese Situationen. Wir lösen sie.</p>
+    </div>
+
+    <div class="problem-grid">
+      {problems.map((p, i) => (
+        <div class="problem-card card" data-reveal data-reveal-delay={String(i + 1)} style={`--accent: ${p.accentColor}`}>
+          <div class="problem-card__top-accent"></div>
+          <div class="problem-card__icon" style={`color: ${p.accentColor}`} set:html={p.icon} />
+          <h3 class="problem-card__title">{p.title}</h3>
+          <p class="problem-card__text">{p.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .problem-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .problem-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .problem-card__top-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--accent);
+  }
+
+  .problem-card__icon {
+    margin-bottom: 1rem;
+    color: var(--accent);
+  }
+
+  .problem-card__title {
+    margin-bottom: 0.75rem;
+  }
+
+  .problem-card__text {
+    font-size: 0.9375rem;
+    color: var(--clr-text-muted);
+    line-height: 1.65;
+  }
+</style>

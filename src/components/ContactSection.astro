@@ -1,0 +1,261 @@
+---
+---
+
+<section class="section section--dark" id="kontakt" aria-labelledby="kontakt-headline">
+  <div class="container">
+    <div class="section__header" data-reveal>
+      <h2 class="contact-headline" id="kontakt-headline">Baumproblem? Wir kümmern uns drum.</h2>
+      <p class="contact-sub">
+        Rufen Sie an, schreiben Sie uns per WhatsApp oder füllen Sie das Formular aus — wir melden uns innerhalb von 24 Stunden.
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Form -->
+      <div class="contact-form-wrap" data-reveal>
+        <form class="contact-form" onsubmit="return false;" aria-label="Kontaktformular">
+          <div class="form-group">
+            <label for="name" class="form-label">Name <span class="required" aria-hidden="true">*</span></label>
+            <input type="text" id="name" name="name" required class="form-input" placeholder="Ihr Name" autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="telefon" class="form-label">Telefon <span class="required" aria-hidden="true">*</span></label>
+            <input type="tel" id="telefon" name="telefon" required class="form-input" placeholder="Ihre Telefonnummer" autocomplete="tel" />
+          </div>
+          <div class="form-group">
+            <label for="ort" class="form-label">Ort <span class="required" aria-hidden="true">*</span></label>
+            <input type="text" id="ort" name="ort" required class="form-input" placeholder="Ihr Ort" />
+          </div>
+          <div class="form-group">
+            <label for="nachricht" class="form-label">Was können wir für Sie tun? <span class="required" aria-hidden="true">*</span></label>
+            <textarea id="nachricht" name="nachricht" required class="form-input form-textarea" placeholder="Beschreiben Sie Ihr Anliegen..." rows="3"></textarea>
+          </div>
+          <button type="submit" class="form-submit">
+            Kostenlose Besichtigung anfragen
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </button>
+          <p class="form-note">Kostenlos &amp; unverbindlich. Wir rufen Sie zurück — kein Spam, kein Callcenter, nur Thomas Kern persönlich.</p>
+        </form>
+      </div>
+
+      <!-- Channels -->
+      <div class="contact-channels" data-reveal data-reveal-delay="1">
+        <!-- Phone -->
+        <div class="contact-channel">
+          <div class="contact-channel__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+          </div>
+          <h3 class="contact-channel__title">Anrufen</h3>
+          <a href="tel:+4901234567890" class="contact-channel__number">
+            0123 – 456 78 90
+          </a>
+          <p class="contact-channel__hours">Mo–Fr 7:00–18:00 Uhr<br>Sa nach Vereinbarung</p>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="contact-channel">
+          <div class="contact-channel__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <h3 class="contact-channel__title">WhatsApp</h3>
+          <a href="https://wa.me/491762345678" class="contact-channel__number">
+            0176 – 234 567 89
+          </a>
+          <p class="contact-channel__hours">Foto schicken,<br>sofort Einschätzung</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-headline {
+    color: var(--clr-white);
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .contact-sub {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1.0625rem;
+    max-width: 640px;
+    margin-inline: auto;
+    line-height: 1.65;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+    max-width: 860px;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1.5fr 1fr;
+      gap: 2.5rem;
+    }
+  }
+
+  .contact-channels {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-self: stretch;
+  }
+
+  .contact-channels .contact-channel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .contact-channel {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .contact-channel__icon {
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline: auto;
+    margin-bottom: 1rem;
+    color: var(--clr-accent);
+  }
+
+  .contact-channel__title {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-channel__number {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--clr-accent);
+    margin-bottom: 0.5rem;
+    transition: opacity 200ms ease;
+    text-decoration: none;
+  }
+
+  .contact-channel__number:hover {
+    opacity: 0.85;
+  }
+
+  .contact-channel__hours {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.6;
+  }
+
+  /* Form */
+  .contact-form-wrap {
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .form-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.03em;
+  }
+
+  .required {
+    color: var(--clr-accent);
+  }
+
+  .form-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0;
+    padding: 0.625rem 0;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--clr-white);
+    outline: none;
+    transition: border-color 200ms ease;
+  }
+
+  .form-input::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .form-input:focus {
+    border-bottom-color: var(--clr-accent);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .form-submit {
+    width: 100%;
+    height: 52px;
+    background-color: var(--clr-accent);
+    color: var(--clr-text);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color 200ms ease, transform 200ms ease;
+    margin-top: 0.5rem;
+  }
+
+  .form-submit:hover {
+    background-color: var(--clr-accent-hover);
+    transform: scale(1.01);
+  }
+
+  .form-note {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    line-height: 1.6;
+    text-align: center;
+  }
+</style>

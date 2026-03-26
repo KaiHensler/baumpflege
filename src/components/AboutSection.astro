@@ -1,0 +1,140 @@
+---
+import { Image } from 'astro:assets';
+import heroPhoto from '../assets/images/hero.jpg';
+
+const badges = [
+  { label: 'FAW', full: 'Fachagrarwirt Baumpflege' },
+  { label: 'ETW', full: 'European Tree Worker' },
+  { label: 'SKT-B', full: 'Seilklettertechnik mit Motorsäge' },
+  { label: '5 Mio. €', full: 'Betriebshaftpflicht' }
+];
+---
+
+<section class="section section--dark" id="ueber-uns" aria-labelledby="ueber-uns-headline">
+  <div class="container">
+    <div class="about-layout">
+      <!-- Portrait — natural ratio, no crop -->
+      <div class="about-portrait" data-reveal>
+        <Image
+          src={heroPhoto}
+          alt="Das Team von Kern Baumpflege vor dem Einsatzfahrzeug"
+          class="portrait-img"
+          width={840}
+          quality={82}
+          format="webp"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Text -->
+      <div class="about-text" data-reveal data-reveal-delay="1">
+        <h2 class="about-headline" id="ueber-uns-headline">Wer hinter Kern Baumpflege steht</h2>
+
+        <p class="about-body">
+          Mein Name ist Thomas Kern. Seit 2018 pflege und fälle ich Bäume in der Rhein-Neckar-Region — als ausgebildeter Fachagrarwirt für Baumpflege und Baumsanierung.
+        </p>
+        <p class="about-body">
+          Bevor ich mich selbstständig gemacht habe, habe ich 8 Jahre für einen der größten Baumpflegbetriebe in Süddeutschland gearbeitet. Heute mache ich das, was ich am besten kann: mit einem kleinen, eingespielten Team Bäume sicher und fachgerecht bearbeiten.
+        </p>
+        <p class="about-body">
+          Was uns von anderen unterscheidet: Wir sind keine „Baumschneider" oder Gelegenheits-Fäller. Wir sind ausgebildete Fachleute mit Zertifizierungen, die in Deutschland Standards setzen.
+        </p>
+
+        <div class="about-badges" role="list" aria-label="Qualifikationen">
+          {badges.map(b => (
+            <div class="badge" role="listitem">
+              <span class="badge__label">{b.label}</span>
+              <span class="badge__full">{b.full}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  @media (min-width: 768px) {
+    .about-layout {
+      grid-template-columns: 420px 1fr;
+      gap: 4rem;
+      align-items: stretch;
+    }
+  }
+
+  .portrait-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    display: block;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  @media (min-width: 768px) {
+    .about-portrait {
+      position: relative;
+    }
+
+    .portrait-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+  }
+
+  .about-headline {
+    color: var(--clr-white);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-body {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  .about-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .badge {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-md);
+    padding: 0.625rem 1rem;
+    gap: 0.2rem;
+  }
+
+  .badge__label {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--clr-accent);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .badge__full {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+  }
+</style>

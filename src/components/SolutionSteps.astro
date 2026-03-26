@@ -1,0 +1,98 @@
+---
+const steps = [
+  {
+    num: '1',
+    title: 'Anruf oder Nachricht',
+    text: 'Beschreiben Sie Ihr Anliegen am Telefon oder schicken Sie uns ein Foto per WhatsApp. Wir melden uns innerhalb von 24 Stunden mit einer ersten Einschätzung.'
+  },
+  {
+    num: '2',
+    title: 'Kostenlose Besichtigung',
+    text: 'Wir kommen zu Ihnen, schauen uns den Baum an und besprechen gemeinsam die beste Lösung. Danach erhalten Sie ein verbindliches Pauschalangebot — keine versteckten Kosten.'
+  },
+  {
+    num: '3',
+    title: 'Saubere Arbeit',
+    text: 'Unser Team erledigt die Arbeit fachgerecht und räumt danach alles auf. Häckseln, Abtransport, Entsorgung — alles aus einer Hand. Ihr Grundstück ist hinterher ordentlicher als vorher.'
+  }
+];
+---
+
+<section class="section section--alt" id="ablauf" aria-labelledby="ablauf-headline">
+  <div class="container">
+    <div class="section__header" data-reveal>
+      <h2 class="section__headline" id="ablauf-headline">In 3 Schritten zum sicheren Grundstück</h2>
+      <p class="section__sub">Unkompliziert, transparent, zuverlässig.</p>
+    </div>
+
+    <div class="steps">
+      {steps.map((step, i) => (
+        <div class="step" data-reveal data-reveal-delay={String(i + 1)}>
+<div class="step__number" aria-hidden="true">{step.num}</div>
+          <div class="step__content">
+            <h3 class="step__title">{step.title}</h3>
+            <p class="step__text">{step.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 800px;
+    margin-inline: auto;
+    position: relative;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    padding-bottom: 3rem;
+    position: relative;
+  }
+
+  .step:last-child {
+    padding-bottom: 0;
+  }
+
+.step__number {
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    line-height: 1;
+    color: var(--clr-accent);
+    opacity: 0.6;
+    user-select: none;
+    text-align: center;
+    padding-top: 0.125rem;
+  }
+
+  @media (max-width: 767px) {
+    .step__number { font-size: 3.5rem; }
+    .step { grid-template-columns: 64px 1fr; gap: 1rem; }
+  }
+
+  .step__content {
+    padding-top: 0.75rem;
+  }
+
+  .step__title {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--clr-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .step__text {
+    font-size: 1rem;
+    color: var(--clr-text-muted);
+    line-height: 1.65;
+  }
+</style>
