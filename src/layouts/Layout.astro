@@ -50,16 +50,21 @@ const {
       // Header scroll behavior — guarded to skip redundant DOM writes
       const header = document.getElementById('site-header');
       if (header) {
-        let isScrolled = false;
-        const onScroll = () => {
-          const shouldBeScrolled = window.scrollY > 60;
-          if (shouldBeScrolled !== isScrolled) {
-            header.classList.toggle('scrolled', shouldBeScrolled);
-            isScrolled = shouldBeScrolled;
-          }
-        };
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
+        const alwaysScrolled = header.hasAttribute('data-always-scrolled');
+        if (alwaysScrolled) {
+          header.classList.add('scrolled');
+        } else {
+          let isScrolled = false;
+          const onScroll = () => {
+            const shouldBeScrolled = window.scrollY > 60;
+            if (shouldBeScrolled !== isScrolled) {
+              header.classList.toggle('scrolled', shouldBeScrolled);
+              isScrolled = shouldBeScrolled;
+            }
+          };
+          window.addEventListener('scroll', onScroll, { passive: true });
+          onScroll();
+        }
       }
 
       // Mobile menu toggle

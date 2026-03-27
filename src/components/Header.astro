@@ -1,7 +1,12 @@
 ---
+interface Props {
+  alwaysScrolled?: boolean;
+}
+
+const { alwaysScrolled = false } = Astro.props;
 ---
 
-<header id="site-header" class="site-header">
+<header id="site-header" class="site-header" {...alwaysScrolled ? { 'data-always-scrolled': '' } : {}}>
   <div class="header-inner container">
     <!-- Logo -->
     <a href="/" class="header-logo" aria-label="Kern Baumpflege — Startseite">
