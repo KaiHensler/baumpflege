@@ -13,31 +13,65 @@
     <div class="contact-grid">
       <!-- Form -->
       <div class="contact-form-wrap" data-reveal>
-        <form class="contact-form" onsubmit="return false;" aria-label="Kontaktformular">
+        <form id="contact-form" class="contact-form" novalidate aria-label="Kontaktformular">
           <div class="form-group">
             <label for="name" class="form-label">Name <span class="required" aria-hidden="true">*</span></label>
             <input type="text" id="name" name="name" required class="form-input" placeholder="Ihr Name" autocomplete="name" />
+            <div class="form-error" aria-live="polite"></div>
           </div>
           <div class="form-group">
             <label for="telefon" class="form-label">Telefon <span class="required" aria-hidden="true">*</span></label>
             <input type="tel" id="telefon" name="telefon" required class="form-input" placeholder="Ihre Telefonnummer" autocomplete="tel" />
+            <div class="form-error" aria-live="polite"></div>
           </div>
           <div class="form-group">
             <label for="ort" class="form-label">Ort <span class="required" aria-hidden="true">*</span></label>
             <input type="text" id="ort" name="ort" required class="form-input" placeholder="Ihr Ort" />
+            <div class="form-error" aria-live="polite"></div>
           </div>
           <div class="form-group">
             <label for="nachricht" class="form-label">Was können wir für Sie tun? <span class="required" aria-hidden="true">*</span></label>
             <textarea id="nachricht" name="nachricht" required class="form-input form-textarea" placeholder="Beschreiben Sie Ihr Anliegen..." rows="3"></textarea>
+            <div class="form-error" aria-live="polite"></div>
           </div>
-          <button type="submit" class="form-submit">
+          <button type="submit" id="form-submit-btn" class="form-submit">
             Kostenlose Besichtigung anfragen
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg class="form-submit__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
             </svg>
+            <svg class="form-submit__spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+              <path d="M12 2a10 10 0 0 1 10 10"/>
+            </svg>
           </button>
-          <p class="form-note">Kostenlos &amp; unverbindlich. Wir rufen Sie zurück — kein Spam, kein Callcenter, nur Thomas Kern persönlich.</p>
+          <p class="form-note">Kostenlos &amp; unverbindlich. Thomas Kern meldet sich persönlich bei Ihnen.</p>
         </form>
+
+        <!-- Success state -->
+        <div id="form-success" class="form-result form-result--success" hidden>
+          <div class="form-result__icon">
+            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <h3 class="form-result__title">Vielen Dank für Ihre Anfrage!</h3>
+          <p class="form-result__text">Wir haben Ihre Nachricht erhalten. Thomas Kern meldet sich innerhalb von 24 Stunden persönlich bei Ihnen.</p>
+          <button id="form-reset" class="form-result__btn" type="button">Neue Anfrage senden</button>
+        </div>
+
+        <!-- Error state -->
+        <div id="form-error-state" class="form-result form-result--error" hidden>
+          <div class="form-result__icon">
+            <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+              <line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+          </div>
+          <h3 class="form-result__title">Etwas ist schiefgelaufen</h3>
+          <p class="form-result__text">Ihre Nachricht konnte leider nicht gesendet werden. Bitte versuchen Sie es erneut oder rufen Sie uns direkt an unter <strong>0123 – 456 78 90</strong>.</p>
+          <button id="form-retry" class="form-result__btn" type="button">Erneut versuchen</button>
+        </div>
       </div>
 
       <!-- Channels -->
@@ -170,7 +204,7 @@
     line-height: 1.6;
   }
 
-  /* Form */
+  /* ── Form ── */
   .contact-form-wrap {
     background: rgba(255, 255, 255, 0.07);
     border-radius: var(--radius-lg);
@@ -228,7 +262,38 @@
     min-height: 80px;
   }
 
+  /* ── Validation errors ── */
+  .form-input.has-error {
+    border-bottom-color: #e74c3c;
+  }
+
+  .form-input.has-error:focus {
+    border-bottom-color: #e74c3c;
+  }
+
+  .form-error {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #f97066;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 250ms ease, opacity 200ms ease, margin 250ms ease;
+    margin-top: 0;
+  }
+
+  .form-error.visible {
+    max-height: 2.5em;
+    opacity: 1;
+    margin-top: 0.25rem;
+  }
+
+  /* ── Submit button ── */
   .form-submit {
+    position: relative;
     width: 100%;
     height: 52px;
     background-color: var(--clr-accent);
@@ -243,7 +308,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    transition: background-color 200ms ease, transform 200ms ease;
+    transition: background-color 200ms ease, transform 200ms ease, opacity 200ms ease;
     margin-top: 0.5rem;
   }
 
@@ -252,10 +317,198 @@
     transform: scale(1.01);
   }
 
+  .form-submit__spinner {
+    display: none;
+  }
+
+  .form-submit.is-loading {
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  .form-submit.is-loading .form-submit__arrow {
+    display: none;
+  }
+
+  .form-submit.is-loading .form-submit__spinner {
+    display: block;
+    animation: spin 0.7s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
   .form-note {
     font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.4);
     line-height: 1.6;
     text-align: center;
   }
+
+  /* ── Result states ── */
+  .form-result {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    animation: fadeInUp 400ms ease both;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .form-result__icon {
+    margin-bottom: 1.25rem;
+  }
+
+  .form-result--success .form-result__icon {
+    color: #27ae60;
+  }
+
+  .form-result--error .form-result__icon {
+    color: #e74c3c;
+  }
+
+  .form-result__title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--clr-white);
+    margin-bottom: 0.75rem;
+  }
+
+  .form-result__text {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    max-width: 380px;
+    margin-inline: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-result__text strong {
+    color: var(--clr-accent);
+    font-weight: 600;
+  }
+
+  .form-result__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.625rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--clr-white);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background 200ms ease;
+  }
+
+  .form-result__btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+  }
 </style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('form-submit-btn');
+  const successEl = document.getElementById('form-success');
+  const errorStateEl = document.getElementById('form-error-state');
+  const resetBtn = document.getElementById('form-reset');
+  const retryBtn = document.getElementById('form-retry');
+
+  if (form && submitBtn && successEl && errorStateEl && resetBtn && retryBtn) {
+    const rules: Record<string, (v: string) => string> = {
+      name: (v) => v.trim().length < 2 ? 'Bitte geben Sie Ihren Namen ein.' : '',
+      telefon: (v) => {
+        const digits = v.replace(/\D/g, '');
+        return digits.length < 6 ? 'Bitte geben Sie eine gültige Telefonnummer ein.' : '';
+      },
+      ort: (v) => v.trim().length < 2 ? 'Bitte geben Sie Ihren Ort ein.' : '',
+      nachricht: (v) => v.trim().length < 5 ? 'Bitte beschreiben Sie kurz Ihr Anliegen.' : '',
+    };
+
+    function validateField(input: HTMLInputElement | HTMLTextAreaElement): boolean {
+      const rule = rules[input.name];
+      if (!rule) return true;
+      const msg = rule(input.value);
+      const errorDiv = input.closest('.form-group')?.querySelector('.form-error') as HTMLElement | null;
+      if (msg) {
+        input.classList.add('has-error');
+        if (errorDiv) {
+          errorDiv.textContent = msg;
+          errorDiv.classList.add('visible');
+        }
+        return false;
+      }
+      input.classList.remove('has-error');
+      if (errorDiv) {
+        errorDiv.textContent = '';
+        errorDiv.classList.remove('visible');
+      }
+      return true;
+    }
+
+    // Validate on blur; clear errors live on input
+    form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('.form-input').forEach((input) => {
+      input.addEventListener('blur', () => validateField(input));
+      input.addEventListener('input', () => {
+        if (input.classList.contains('has-error')) validateField(input);
+      });
+    });
+
+    function showState(state: 'form' | 'success' | 'error') {
+      form!.hidden = state !== 'form';
+      successEl!.hidden = state !== 'success';
+      errorStateEl!.hidden = state !== 'error';
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Validate all
+      const inputs = form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('.form-input');
+      let valid = true;
+      let firstInvalid: HTMLElement | null = null;
+      inputs.forEach((input) => {
+        if (!validateField(input)) {
+          valid = false;
+          if (!firstInvalid) firstInvalid = input;
+        }
+      });
+
+      if (!valid) {
+        // Shake the first invalid field to draw attention
+        firstInvalid?.focus();
+        return;
+      }
+
+      // Loading state
+      submitBtn.classList.add('is-loading');
+
+      // Simulate network delay (1.2–2s)
+      setTimeout(() => {
+        submitBtn.classList.remove('is-loading');
+        showState(Math.random() > 0.2 ? 'success' : 'error');
+      }, 1200 + Math.random() * 800);
+    });
+
+    resetBtn.addEventListener('click', () => {
+      form.reset();
+      // Clear any lingering error states
+      form.querySelectorAll('.has-error').forEach((el) => el.classList.remove('has-error'));
+      form.querySelectorAll('.form-error').forEach((el) => {
+        el.textContent = '';
+        el.classList.remove('visible');
+      });
+      showState('form');
+    });
+
+    retryBtn.addEventListener('click', () => {
+      showState('form');
+    });
+  }
+</script>
